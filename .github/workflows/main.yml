@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
@@ -27,6 +28,15 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+
+      - name: Cache gatsby outputs
+        uses: actions/cache@v2
+        with:
+          path: |
+		~/.cache
+		~/public
+          key: gatsby-${{ runner.os }}
+          restore-keys: gatsby-
 
       - name: Create public folder for build output
         run: mkdir -p public
@@ -40,8 +50,8 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          branch: main # The branch the action should deploy to.
-          folder: public # The folder the action should deploy.
+          branch: gh-pages
+          folder: public
         
         
         
