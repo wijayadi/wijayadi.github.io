@@ -29,16 +29,16 @@ jobs:
         with:
           envkey_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
 
-      - name: Cache gatsby outputs
+      - name: Cache outputs
         uses: actions/cache@v2
         with:
           path: |
-            ~/.cache
-            ~/public
+            .cache
+            public
           key: gatsby-${{ runner.os }}
           restore-keys: gatsby-
 
-      - name: Create public folder for build output
+      - name: Create public folder
         run: mkdir -p public
 
       - name: Run npm install
